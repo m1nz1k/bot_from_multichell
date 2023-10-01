@@ -1,4 +1,4 @@
-# Функции для работой с основной таблицей в БД: users.
+
 from asyncpg import UniqueViolationError
 from utils.db_api.db_gino import db
 from utils.db_api.schemas.user import User

@@ -73,11 +73,9 @@ async def get_rented_products(user_id: int):
 
 async def update_product_rent_user_id(product_id: int, user_id: int, rent_user_id=None, status='created'):
     try:
-        # Получаем продукт по его ID
         product = await select_product_by_id(product_id)
 
         if product:
-            # Устанавливаем новые значения для полей `rent_user_id` и `status`
             await Product.update.values(rent_user_id=rent_user_id, status=status).where(Product.id == product_id).gino.status()
             return True
         else:

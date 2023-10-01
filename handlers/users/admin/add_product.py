@@ -27,8 +27,8 @@ async def edit_price(message: types.Message):
 
 @dp.callback_query_handler(lambda c: c.data == 'dell_product', state="*")
 async def delete_product_callback(callback_query: types.CallbackQuery, state: FSMContext):
-    await callback_query.answer()  # Отправляем ответ на запрос, чтобы убрать подсветку кнопки
-    await bot_dell_product.dell.set()  # Устанавливаем состояние dell
+    await callback_query.answer()
+    await bot_dell_product.dell.set()
     await show_all_products(callback_query.message.chat.id)
 
 
@@ -56,7 +56,7 @@ async def delete_product_by_id(message: types.Message, state: FSMContext):
     else:
         await message.answer(f"Продукт с ID {product_id} не найден.")
 
-    await state.finish()  # Завершаем состояние после удаления продукта
+    await state.finish()
 
 
 
@@ -65,7 +65,7 @@ async def delete_product_by_id(message: types.Message, state: FSMContext):
 
 @dp.callback_query_handler(lambda c: c.data == 'add_product')
 async def start_product_name(callback_query: types.CallbackQuery):
-    await bot_product.name.set()  # Имя дыньку
+    await bot_product.name.set()
     await callback_query.message.answer("Укажите название дыньки")
 
 
@@ -104,7 +104,6 @@ async def process_photo(message: types.Message, state: FSMContext):
         color = data['color']
         photo_id = data['photo']
 
-    # Попробуйте добавить продукт в базу данных
     if await commands.create_product(name=name, size=size, color=color, status='created', rent_user_id=None, photo_id=photo_id):
         await message.answer(f"Продукт {name} успешно добавлен в базу данных.")
     else:

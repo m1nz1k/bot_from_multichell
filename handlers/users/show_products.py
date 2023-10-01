@@ -5,7 +5,7 @@ from filters import IsPrivate
 from utils.db_api import product_commands as commands
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-# Обработчик текстового сообщения "Список дынек"
+
 @dp.message_handler(lambda message: message.text.lower() == 'список дынек', state="*")
 async def list_dines(message: types.Message):
     try:
@@ -21,11 +21,11 @@ async def list_dines(message: types.Message):
                        f"Размер - {product.size}\n" \
                        f"Цвет - {product.color}"
 
-                # Создаем инлайн-кнопку "Взять в аренду"
+
                 keyboard = InlineKeyboardMarkup()
                 keyboard.add(InlineKeyboardButton(text="Взять в аренду", callback_data=f'rent_product_{product.id}'))
 
-                # Отправляем сообщение с информацией о дыне и кнопкой "Взять в аренду"
+
                 await message.answer_photo(product.photo_id, caption=text, reply_markup=keyboard)
 
     except Exception as e:
